@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'permission_screen.dart';
+import 'splash_screen.dart';
+import '../widgets/custom_icon.dart';
 import 'dart:async'; // Import for using Timer
 
 class OnboardingScreen extends StatefulWidget {
@@ -80,7 +83,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 48.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 48,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: (){
+                  // On pressed go back, but how?
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const SplashScreen())
+                  );
+                }, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.zero,
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap
+                ),
+                child: CustomIcon(icon: Icons.chevron_left, iconSize: 32),
+              ),
+            ),
             // Header Section: Title and Subtitle
             // Using an AnimatedSwitcher for smooth text transitions
             AnimatedSwitcher(
@@ -182,9 +210,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Action for the Continue button
-                      // print('Continue button pressed on onboarding screen!');
-                      // Example: Navigate to the main app screen
-                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainAppScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PermissionScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white, // White background

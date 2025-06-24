@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/onboarding/splash_screen.dart';
+import 'screens/splash_screen.dart';
 
 // This class defines your main application widget
 class ManuVoxApp extends StatelessWidget {
@@ -8,7 +8,8 @@ class ManuVoxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ManuVox Welcome', // Title of the application
+      title: 'ManuVox', // Title of the application
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark, // Overall dark theme
         primarySwatch: Colors.blue, // Primary color swatch

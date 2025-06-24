@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-// Import the OnboardingScreen as it's the next destination
 import 'onboarding_screen.dart';
+import 'finalization_screen.dart';
+import '../widgets/custom_icon.dart';
+// Import the OnboardingScreen as it's the next destination
 
 // The SplashScreen widget, now in its own file
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+class PermissionScreen extends StatelessWidget {
+  const PermissionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,20 +17,44 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 120),
+            const SizedBox(height: 10),
+            SizedBox(
+              width: 48,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: (){
+                  // On pressed go back, but how?
+                  Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const OnboardingScreen())
+                  );
+                }, 
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.zero,
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap
+                ),
+                child: CustomIcon(icon: Icons.chevron_left, iconSize: 32),
+              ),
+            ),
+            const SizedBox(height: 80),
             const Text(
-              'ManuVox',
+              'Allow Camera Access',
               style: TextStyle(
-                fontSize: 48,
+                fontSize: 36,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
             ),
             const SizedBox(height: 8),
             const Text(
-              'A Filipino Sign Language App.',
+              'In order for our deliver the best experience in recognizing sign language we need access to your camera.',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 color: Colors.white,
               ),
             ),
@@ -36,32 +62,13 @@ class SplashScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.white,
-                    ),
-                    children: <TextSpan>[
-                      const TextSpan(text: 'By clicking Continue you agree to our '),
-                      TextSpan(
-                        text: 'Privacy Policy',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                      const TextSpan(text: ' and '),
-                      TextSpan(
-                        text: 'Terms and Conditions',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ],
+                const Text(
+                  '(Please note that we only use the device camera for recognition only!)',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal,
                   ),
+                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
@@ -69,12 +76,11 @@ class SplashScreen extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to the OnboardingScreen
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-                      );
+                      // Navigate to the Finalization Screen
                       // print('Continue button pressed from splash screen, navigating to OnboardingScreen!');
+                      Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => const FinalizationScreen())
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
@@ -85,7 +91,7 @@ class SplashScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 15),
                     ),
                     child: const Text(
-                      'Continue',
+                      'Allow Access',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
