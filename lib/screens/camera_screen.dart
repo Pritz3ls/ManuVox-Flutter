@@ -27,8 +27,8 @@ class CameraScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomIcon(icon: Icons.menu, iconSize: 13),
-                      CustomIcon(icon: Icons.menu_book_outlined, iconSize: 13),
+                      CustomIcon(icon: Icons.menu, iconSize: 30),
+                      CustomIcon(icon: Icons.menu_book_outlined, iconSize: 30),
                     ],
                   ),
                 ),
