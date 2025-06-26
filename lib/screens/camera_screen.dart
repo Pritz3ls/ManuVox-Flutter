@@ -72,8 +72,8 @@ class CameraScreen extends StatelessWidget {
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomIcon(icon: Icons.tune, color: Colors.blue, iconSize:15),
-                      CustomIcon(icon: Icons.camera_alt_outlined, color: Colors.blue, iconSize:15),
+                      CustomIcon(icon: Icons.tune, color: Colors.blue, iconSize:30),
+                      CustomIcon(icon: Icons.camera_alt_outlined, color: Colors.blue, iconSize:30),
                     ],
                   ),
                 ),
