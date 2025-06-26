@@ -6,6 +6,8 @@ import '../widgets/gesture_result_item.dart';
 class ViewGesturesPage extends StatelessWidget {
   final List<String> results = List.filled(6, 'Result - Text');
 
+  ViewGesturesPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

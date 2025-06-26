@@ -12,7 +12,7 @@ class CameraScreen extends StatelessWidget {
           
           Positioned.fill(
             child: Image.asset(
-              'assets/Background-Demo-Image.png',
+              'assets/images/Background-Demo-Image.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -27,8 +27,8 @@ class CameraScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomIcon(icon: Icons.menu, iconSize: 13),
-                      CustomIcon(icon: Icons.menu_book_outlined, iconSize: 13),
+                      CustomIcon(icon: Icons.menu, iconSize: 32),
+                      CustomIcon(icon: Icons.menu_book_outlined, iconSize: 32),
                     ],
                   ),
                 ),
@@ -64,16 +64,15 @@ class CameraScreen extends StatelessWidget {
             ),
           ),
 
-
-                
+    
               Container(
                   color: Colors.black,
                   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                   child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomIcon(icon: Icons.tune, color: Colors.blue, iconSize:15),
-                      CustomIcon(icon: Icons.camera_alt_outlined, color: Colors.blue, iconSize:15),
+                      CustomIcon(icon: Icons.tune, color: Colors.blue, iconSize:32),
+                      CustomIcon(icon: Icons.camera_alt_outlined, color: Colors.blue, iconSize:32),
                     ],
                   ),
                 ),

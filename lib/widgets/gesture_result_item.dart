@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class GestureResultItem extends StatelessWidget {
   final String text;
 
-  const GestureResultItem({required this.text});
+  const GestureResultItem({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,42 @@
 import 'package:flutter/material.dart';
+import 'camera_screen.dart';
+import 'dart:async'; // Import for using Timer
 
-class FinalizationScreen extends StatelessWidget {
+class FinalizationScreen extends StatefulWidget{
   const FinalizationScreen({super.key});
+  @override
+  State<FinalizationScreen> createState() => _FinalizationScreenState();
+}
+
+class _FinalizationScreenState extends State<FinalizationScreen> {
+  Timer? _virtualLoadingTime;
+  final Duration _loadingDuration = const Duration(seconds: 3);
+
+  @override
+  void initState(){
+    super.initState();
+    startLoadingTime();
+  }
+
+  void startLoadingTime(){
+    _virtualLoadingTime = Timer.periodic(_loadingDuration, (timer){
+      setState((){
+        Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const CameraScreen())
+        );
+      });
+    });
+  }
+
+  @override
+  void dispose(){
+    _virtualLoadingTime?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D), // Dark background color
       body: Padding(
