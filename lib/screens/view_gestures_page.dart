@@ -10,7 +10,7 @@ class ViewGesturesPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          // Curved & Responsive Header
+          // Curved & Responsive Header for Camera notch
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
