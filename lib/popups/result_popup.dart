@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResultPopup extends StatelessWidget {
-  final String name;
-  final String category;
-
-  const ResultPopup({
-    super.key,
-    required this.name,
-    required this.category,
-  });
+  const ResultPopup({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,31 +31,33 @@ class ResultPopup extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
               // White panel
               Container(
                 width: screenWidth * 0.6, 
-                height: 170,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
-              const SizedBox(height: 10), 
+
+                const SizedBox(height: 10), 
               //Text
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 35),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(name, style: TextStyle(fontWeight: FontWeight.bold)),
-                      SizedBox(height: 4),
-                      Text(category, style: TextStyle(color: Colors.grey)),
-                    ],
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 35),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Result Text", style: TextStyle(fontWeight: FontWeight.bold)),
+                        SizedBox(height: 4),
+                        Text("Facial Features", style: TextStyle(color: Colors.grey)),
+                      ],
+                    ),
                   ),
                 ),
-              ),
+
             ],
           ),
         ),
