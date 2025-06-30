@@ -204,7 +204,7 @@ class _ReferenceState extends State<ReferenceScreen> {
 
 // Your fetchGestures function (kept as is, assuming it's in the same file or imported)
 Future<List<Gestures>> fetchGestures() async {
-  final String apiUrl = 'http://localhost:3001/manuvox/gestures'; // For Android emulator, use 10.0.2.2
+  final String apiUrl = 'http://10.0.2.2:3001/manuvox/gestures'; // For Android emulator, use 10.0.2.2
 
   try {
     final response = await http.get(Uri.parse(apiUrl));
