@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
-import '../popups/result_popup.dart';
 
-class GestureResultItem extends StatelessWidget {
-  final String name;
-  final String category;
-
-  const GestureResultItem({
-    super.key,
-    required this.name,
-    required this.category
-  });
-
+ class PopupHandler extends StatelessWidget{
+  // const PopupHandler({super.key});
   void showPopup(BuildContext context, Widget child) {
     showGeneralDialog(
       context: context,
@@ -39,23 +30,7 @@ class GestureResultItem extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      decoration: BoxDecoration(
-        color: Color(0xFF1C1C1E),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: ListTile(
-        title: Text(
-          "$name - $category",
-          style: TextStyle(color: Colors.white),
-        ),
-        onTap: () {
-          // Handle tap if needed
-          showPopup(context, ResultPopup(name: name, category: category));
-        },
-      ),
-    );
+  Widget build(BuildContext context){
+    return PopupHandler();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/camera_screen.dart';
 
 class GestureHeader extends StatelessWidget {
   const GestureHeader({super.key});
@@ -19,7 +20,10 @@ class GestureHeader extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => CameraScreen())
+              );
             },
           ),
           const SizedBox(width: 8),
