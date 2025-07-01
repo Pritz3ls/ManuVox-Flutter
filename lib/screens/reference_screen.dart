@@ -1,8 +1,9 @@
 // import '../widgets/gesture_header.dart';
 // import '../widgets/gesture_search_bar.dart';
 // import '../widgets/gesture_result_item.dart';
-import '../widgets/gestures.dart'; // Assuming Gestures class and fetchGestures are here
 import '../screens/camera_screen.dart';
+// import '../objects/local_database.dart';
+import '../objects/gestures.dart'; // Assuming Gestures class and fetchGestures are here
 
 import 'dart:convert'; // For jsonDecode
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class _ReferenceState extends State<ReferenceScreen> {
   bool isLoading = true;
   String? error;
   String searchValue = '';
+  // LocalDatabase localDatabase = new LocalDatabase();
 
   @override
   void initState() {
