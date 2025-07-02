@@ -1,5 +1,3 @@
-import 'gestures.dart'; // Import Gestures if you want to reuse its properties easily
-
 class GestureWithCategory {
   final int id; // The gesture's ID
   final String gestureName; // The gesture's name

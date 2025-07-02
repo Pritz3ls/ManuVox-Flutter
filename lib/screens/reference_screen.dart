@@ -1,14 +1,10 @@
-// import '../widgets/gesture_header.dart';
-// import '../widgets/gesture_search_bar.dart';
-// import '../widgets/gesture_result_item.dart';
-import '../screens/camera_screen.dart';
-
-import '../objects/local_database.dart';
 import '../objects/gesture_category.dart';
-// import '../objects/remote_database.dart';
-// import '../objects/gestures.dart'; // Assuming Gestures class and fetchGestures are here
-// import '../objects/category.dart'; // Assuming Gestures class and fetchGestures are here
+import '../objects/local_database.dart';
+import '../objects/sync_service.dart';
+import '../popups/popup_handler.dart';
+import '../popups/update_popup.dart';
 
+import '../screens/camera_screen.dart';
 import 'package:flutter/material.dart';
 
 class ReferenceScreen extends StatefulWidget {
@@ -25,7 +21,15 @@ class _ReferenceState extends State<ReferenceScreen> {
   @override
   void initState() {
     super.initState();
+    _checkUpdates();
     _loadGestures();
+  }
+
+  Future <void> _checkUpdates() async{
+    bool availableUpdates = await SyncService.instance.hasPendingUpdates();
+    if(availableUpdates){
+      PopupHandler.instance.showPopup(context, const UpdatePopup());
+    }
   }
 
   Future<void> _loadGestures() async {
@@ -205,157 +209,3 @@ class _ReferenceState extends State<ReferenceScreen> {
     );
   }
 }
-
-// Ensure your Gestures class is defined like this (or similar, depending on what your API returns for 'category'):
-// If your React server sends { "id": 1, "name": "GestureName", "category": "CategoryString" }
-// Then your Gestures class should be:
-// class Gestures {
-//   final String name;
-//   final String category; // Assuming your API provides a 'category' string
-
-//   Gestures({
-//     required this.name,
-//     required this.category,
-//   });
-
-//   factory Gestures.fromJson(Map<String, dynamic> json) {
-//     return Gestures(
-//       name: json['name'],
-//       category: json['category'], // Make sure this key matches your API response
-//     );
-//   }
-// }
-
-// If your React server only sends { "id": 1, "name": "GestureName" } (based on your DB schema)
-// And you want 'category' in Gestures to be the 'id', then Gestures should be:
-// class Gestures {
-//   final int id;
-//   final String name;
-
-//   Gestures({
-//     required this.id,
-//     required this.name,
-//   });
-
-//   factory Gestures.fromJson(Map<String, dynamic> json) {
-//     return Gestures(
-//       id: json['id'],
-//       name: json['name'],
-//     );
-//   }
-// }
-// And your ListTile subtitle would be: Text('ID: ${results[index].id}'),
-
-/*
-  body: Column(
-        children: [
-          // Curved & Responsive Header for Camera notch
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Color(0xFF1E1E1E),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(60),
-              ),
-            ),
-            padding: EdgeInsets.fromLTRB(16, topPadding + 12, 16, 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Circular Back Icon
-                Container(
-                  width: 36,
-                  height: 36,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(Icons.arrow_back_ios_new,
-                      color: Colors.white, size: 18),
-                ),
-                SizedBox(height: 8),
-                // Header Title
-                Padding(
-                  padding: EdgeInsets.only(left: 40),
-                  child: Text(
-                    'View Gestures',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ),
-                SizedBox(height: 4),
-                // Header Subtitle
-                Padding(
-                  padding: EdgeInsets.only(left: 40),
-                  child: Text(
-                    'Learn how to do sign language',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          SizedBox(height: 20),
-
-          // Search Bar
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      style: TextStyle(color: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: 'Search Word',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: InputBorder.none,
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.search, color: Colors.white),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 20),
-
-          // Result Cards
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: results.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(bottom: 10),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1E1E1E),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    results[index].name,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-*/

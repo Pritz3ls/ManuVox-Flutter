@@ -1,39 +1,13 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 import 'reference_screen.dart';
 import '../widgets/custom_icon.dart';
+import '../popups/popup_handler.dart';
 import '../popups/speed_popup.dart';
 import '../popups/settings_popup.dart';
 
 class CameraScreen extends StatelessWidget {
   const CameraScreen({super.key});
-
-  void showPopup(BuildContext context, Widget child) {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      barrierLabel: 'Popup',
-      barrierColor: Colors.black.withOpacity(0.4),
-      transitionDuration: const Duration(milliseconds: 200),
-      pageBuilder: (context, animation, secondaryAnimation) {
-        return SafeArea(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            body: Stack(
-              children: [
-                BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-                  child: Container(color: Colors.black.withOpacity(0.3)),
-                ),
-                child,
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +56,7 @@ class CameraScreen extends StatelessWidget {
                         width: 48,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () => showPopup(context, const SettingsPopup()),
+                          onPressed: () => PopupHandler.instance.showPopup(context, const SettingsPopup()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             foregroundColor: Colors.white,
@@ -164,7 +138,7 @@ class CameraScreen extends StatelessWidget {
                         width: 48,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () => showPopup(context, const SpeedPopup()),
+                          onPressed: () => PopupHandler.instance.showPopup(context, const SpeedPopup()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             foregroundColor: Colors.white,

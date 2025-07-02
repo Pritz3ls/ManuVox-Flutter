@@ -3,8 +3,15 @@ import 'category.dart';
 import 'gestures.dart';
 import 'gesture_category.dart';
 
-import 'package:path/path.dart';
+import 'package:flutter/foundation.dart' show kIsWeb; // Import kIsWeb
+import 'package:sqflite_common_ffi/sqflite_ffi.dart'; // For desktop/other platforms
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'; // For web
+
+import 'package:flutter/material.dart';
+import 'dart:io' show Platform; // For desktop platform checks
 import 'package:sqflite/sqflite.dart';
+
+import 'package:path/path.dart';
 
 class LocalDatabase{
   static final LocalDatabase instance = LocalDatabase._instance();
@@ -18,6 +25,17 @@ class LocalDatabase{
   }
 
   Future<Database> initializeDB() async{
+    WidgetsFlutterBinding.ensureInitialized();
+    // Initialize FFI for desktop platforms if needed
+    if (kIsWeb) {
+      // Use the web factory for Flutter web
+      databaseFactory = databaseFactoryFfiWeb;
+    } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      // Use the ffi factory for desktop platforms
+      sqfliteFfiInit(); // Initialize FFI for desktop
+      databaseFactory = databaseFactoryFfi;
+    }
+
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'manuvox.db');
     

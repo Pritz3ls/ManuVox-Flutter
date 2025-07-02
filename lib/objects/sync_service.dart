@@ -6,15 +6,54 @@ import '../objects/remote_database.dart';
 import 'package:connectivity_plus/connectivity_plus.dart'; // For connectivity checks
 
 class SyncService {
+  static final SyncService instance = SyncService._instance();
   final LocalDatabase _localDb = LocalDatabase.instance;
   final RemoteDatabase _remoteDb = RemoteDatabase();
 
   static const String _lastCategorySyncTimeKey = 'lastCategorySyncTime';
   static const String _lastGestureSyncTimeKey = 'lastGestureSyncTime';
 
+  SyncService._instance();
+
   Future<bool> isConnected() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     return connectivityResult != ConnectivityResult.none;
+  }
+
+    // Check if theres an update available, return true if there was
+  Future<bool> hasPendingUpdates() async {
+    if (!(await isConnected())) {
+      print('No internet connection. Cannot check for updates.');
+      return false; // Cannot check if offline
+    }
+
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      // Check for Category updates
+      DateTime? lastCategorySyncTime = _getLastSyncTime(prefs, _lastCategorySyncTimeKey);
+      List<Category> remoteCategories = await _remoteDb.fetchCategories(since: lastCategorySyncTime);
+      if (remoteCategories.isNotEmpty) {
+        print('${remoteCategories.length} new/updated categories found during check.');
+        return true; // Updates available for categories
+      }
+
+      // Check for Gesture updates
+      DateTime? lastGestureSyncTime = _getLastSyncTime(prefs, _lastGestureSyncTimeKey);
+      List<Gestures> remoteGestures = await _remoteDb.fetchGestures(since: lastGestureSyncTime);
+      if (remoteGestures.isNotEmpty) {
+        print('${remoteGestures.length} new/updated gestures found during check.');
+        return true; // Updates available for gestures
+      }
+
+      print('No new updates found from remote server during check.');
+      return false; // No updates found for either
+    } catch (e) {
+      print('Error during update check: $e');
+      // In case of an error during the check, we might assume no updates
+      // or that the check failed. For safety, return false if error.
+      return false;
+    }
   }
 
   Future<void> performFullPullSync() async {

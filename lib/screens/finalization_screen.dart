@@ -1,12 +1,3 @@
-import '../objects/local_database.dart'; // Import the DatabaseHelper class
-import '../objects/sync_service.dart'; // Import the DatabaseHelper class
-
-import 'package:flutter/foundation.dart' show kIsWeb; // Import kIsWeb
-import 'package:sqflite_common_ffi/sqflite_ffi.dart'; // For desktop/other platforms
-import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'; // For web
-
-import 'dart:io' show Platform; // For desktop platform checks
-
 import 'package:flutter/material.dart';
 import 'camera_screen.dart';
 import 'dart:async'; // Import for using Timer
@@ -22,24 +13,8 @@ class _FinalizationScreenState extends State<FinalizationScreen> {
   final Duration _loadingDuration = const Duration(seconds: 3);
 
   @override
-  void initState() async{
+  void initState(){
     super.initState();
-    WidgetsFlutterBinding.ensureInitialized();
-    // Initialize FFI for desktop platforms if needed
-    if (kIsWeb) {
-      // Use the web factory for Flutter web
-      databaseFactory = databaseFactoryFfiWeb;
-    } else if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      // Use the ffi factory for desktop platforms
-      sqfliteFfiInit(); // Initialize FFI for desktop
-      databaseFactory = databaseFactoryFfi;
-    }
-    
-    await LocalDatabase.instance.initializeDB();
-    // await LocalDatabase.instance.initializeCategory();
-
-    await SyncService().performFullPullSync();
-    
     startLoadingTime();
   }
 
