@@ -1,12 +1,15 @@
 // import '../widgets/gesture_header.dart';
 // import '../widgets/gesture_search_bar.dart';
 // import '../widgets/gesture_result_item.dart';
-import '../widgets/gestures.dart'; // Assuming Gestures class and fetchGestures are here
 import '../screens/camera_screen.dart';
 
-import 'dart:convert'; // For jsonDecode
+import '../objects/local_database.dart';
+import '../objects/gesture_category.dart';
+// import '../objects/remote_database.dart';
+// import '../objects/gestures.dart'; // Assuming Gestures class and fetchGestures are here
+// import '../objects/category.dart'; // Assuming Gestures class and fetchGestures are here
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http; // As http to avoid naming conflicts
 
 class ReferenceScreen extends StatefulWidget {
   @override
@@ -14,7 +17,7 @@ class ReferenceScreen extends StatefulWidget {
 }
 
 class _ReferenceState extends State<ReferenceScreen> {
-  List<Gestures> results = [];
+  List<GestureWithCategory> results = [];
   bool isLoading = true;
   String? error;
   String searchValue = '';
@@ -27,7 +30,8 @@ class _ReferenceState extends State<ReferenceScreen> {
 
   Future<void> _loadGestures() async {
     try {
-      List<Gestures> fetchedGestures = await fetchGestures();
+      List<GestureWithCategory> fetchedGestures = await LocalDatabase.instance.selectGesturesWithCategoryNames();
+
       setState(() {
         results = fetchedGestures;
         isLoading = false;
@@ -43,8 +47,8 @@ class _ReferenceState extends State<ReferenceScreen> {
   @override
   Widget build(BuildContext context) {
     final double topPadding = MediaQuery.of(context).padding.top;
-    final filteredSearch = results.where((result) => result.name.toLowerCase().contains(searchValue.toLowerCase()) 
-    || result.category.toLowerCase().contains(searchValue.toLowerCase())).toList();
+    final filteredSearch = results.where((result) => result.gestureName.toLowerCase().contains(searchValue.toLowerCase()) 
+    || result.categoryName.toLowerCase().contains(searchValue.toLowerCase())).toList();
 
     return Scaffold( // <--- Wrap with Scaffold
       // body: Builder( // Using Builder to ensure context is available if needed
@@ -189,7 +193,7 @@ class _ReferenceState extends State<ReferenceScreen> {
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "${filteredSearch[index].name} - ${filteredSearch[index].category}",
+                    "${filteredSearch[index].gestureName} - ${filteredSearch[index].categoryName}",
                     style: TextStyle(color: Colors.white),
                   ),
                 );
@@ -199,29 +203,6 @@ class _ReferenceState extends State<ReferenceScreen> {
         ],
       ),
     );
-  }
-}
-
-// Your fetchGestures function (kept as is, assuming it's in the same file or imported)
-Future<List<Gestures>> fetchGestures() async {
-  final String apiUrl = 'http://10.0.2.2:3001/manuvox/gestures'; // For Android emulator, use 10.0.2.2
-
-  try {
-    final response = await http.get(Uri.parse(apiUrl));
-
-    if (response.statusCode == 200) {
-      List<dynamic> jsonList = jsonDecode(response.body);
-      
-      // Ensure your Gestures.fromJson correctly parses the data from your React server
-      // based on the fields it returns (e.g., 'name', 'category' if your API provides it).
-      List<Gestures> gestures = jsonList.map((json) => Gestures.fromJson(json)).toList();
-      
-      return gestures;
-    } else {
-      throw Exception('Failed to load gestures: ${response.statusCode}');
-    }
-  } catch (e) {
-    throw Exception('Error fetching gestures: $e');
   }
 }
 
