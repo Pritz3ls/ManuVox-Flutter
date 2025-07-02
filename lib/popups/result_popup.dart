@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ResultPopup extends StatelessWidget {
-  const ResultPopup({super.key});
+  const ResultPopup({super.key, required String name, required String category});
 
   @override
   Widget build(BuildContext context) {

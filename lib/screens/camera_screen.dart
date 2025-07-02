@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+
 import 'reference_screen.dart';
 import '../widgets/custom_icon.dart';
 import '../popups/speed_popup.dart';
@@ -60,7 +61,7 @@ class CameraScreen extends StatelessWidget {
                   end: Alignment.topCenter,
                   colors: [
                     Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(240, 0, 0, 0),
+                    Color.fromARGB(237, 0, 0, 0),
                   ],
                 ),
               ),
