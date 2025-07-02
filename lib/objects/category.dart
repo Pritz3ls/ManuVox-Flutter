@@ -1,32 +1,37 @@
 class Category {
   final int? id;
   final String name;
-  final DateTime? updated_at;
+  final DateTime? updatedAt; // Use camelCase for Dart conventions
 
   const Category({
     this.id,
     required this.name,
-    this.updated_at
+    this.updatedAt // Use the camelCase parameter
   });
 
-  // Remote Databse / API Related Functions
-  factory Category.fromJson(Map<String, dynamic> json) {
+  factory Category.fromMap(Map<String, dynamic> map) {
     return Category(
-      id: json['id'],
-      name: json['name'],
-      updated_at: json['updated_at']
+      id: map['id'] as int?, // Safely cast to int?
+      name: map['name'] as String, // Safely cast to String
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at'].toString()) // Ensure it's a string, then parse
+          : null,
     );
   }
 
-  // SQFLite Related Functions
-  Map<String, Object?> toMap(){
-    return {'id': id, 'name': name, 'updated_at': updated_at};
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category.fromMap(json); // Just delegate to fromMap
   }
-  factory Category.fromMap(Map<String, dynamic> map){
-    return Category(
-      id: map['id'],
-      name: map['name'],
-      updated_at: map['updated_at']
-    );
+
+  // SQFLite / Serialization to Map for Database or API
+  Map<String, dynamic> toMap() {
+    final Map<String, dynamic> map = {
+      'name': name,
+      'updated_at': DateTime.now().toIso8601String(),
+    };
+    if (id != null) {
+      map['id'] = id;
+    }
+    return map;
   }
 }

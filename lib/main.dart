@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import '../objects/local_database.dart'; // Import the DatabaseHelper class
-// import '../objects/gestures.dart';
-
-// import 'package:flutter/material.dart';
-// import '../objects/category.dart';
+import '../objects/sync_service.dart'; // Import the DatabaseHelper class
 
 import 'package:flutter/foundation.dart' show kIsWeb; // Import kIsWeb
 import 'package:sqflite_common_ffi/sqflite_ffi.dart'; // For desktop/other platforms
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'; // For web
+
 import 'dart:io' show Platform; // For desktop platform checks
-import 'screens/database_tester.dart';
+// import 'screens/database_tester.dart';
+import 'app.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,14 +21,11 @@ void main() async{
     sqfliteFfiInit(); // Initialize FFI for desktop
     databaseFactory = databaseFactoryFfi;
   }
-
-  // Set the database factory for sqflite
-  // This is crucial for desktop and testing environments.
-  // On mobile (iOS/Android), sqflite's default factory is usually sufficient
-  // unless you specifically want to use FFI there too.
   
   await LocalDatabase.instance.initializeDB();
-  await LocalDatabase.instance.initializeCategory();
+  // await LocalDatabase.instance.initializeCategory();
 
-  runApp(DatabaseTester());
+  await SyncService().performFullPullSync();
+
+  runApp(const ManuVoxApp());
 }

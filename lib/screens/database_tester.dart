@@ -52,7 +52,7 @@ class _DatabaseListState extends State<DatabaseList> {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(_category[index].name),
-            subtitle: Text(_category[index].updated_at.toString()),
+            subtitle: Text(_category[index].id.toString()),
           );
         },
       ),
