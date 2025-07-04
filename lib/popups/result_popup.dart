@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 
 class ResultPopup extends StatelessWidget {
-  const ResultPopup({super.key, required String name, required String category});
+  final String name;
+  final String category;
+
+  const ResultPopup({
+    super.key, 
+    required this.name, 
+    required this.category
+  });
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-  //black border
+    double screenHeight = MediaQuery.of(context).size.height;
+    //black border
     return Align(
       alignment: Alignment.bottomCenter,
       child: Padding(
@@ -35,6 +43,7 @@ class ResultPopup extends StatelessWidget {
               // White panel
               Container(
                 width: screenWidth * 0.6, 
+                height: screenHeight * 0.2,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -43,16 +52,23 @@ class ResultPopup extends StatelessWidget {
 
                 const SizedBox(height: 10), 
               //Text
-                const Padding(
+                Padding(
                   padding: EdgeInsets.symmetric(horizontal: 35),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Result Text", style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(
+                          name, 
+                          style: TextStyle(fontWeight: FontWeight.bold)
+                        ),
                         SizedBox(height: 4),
-                        Text("Facial Features", style: TextStyle(color: Colors.grey)),
+
+                        Text(
+                          category, 
+                          style: TextStyle(color: Colors.grey)
+                        ),
                       ],
                     ),
                   ),

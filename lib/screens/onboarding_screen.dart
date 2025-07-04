@@ -26,17 +26,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     OnboardingItem(
       title: "Welcome to ManuVox",
       subtitle: "ManuVox is an app that helps you learn and understand Filipino sign language.",
-      imageUrl: "https://placehold.co/400x300/0D0D0D/FFFFFF?text=Welcome", // Placeholder image 1
+      imageUrl: 'assets/images/Hand.png', // Placeholder image 1
     ),
     OnboardingItem(
       title: "Learn FSL Basics",
       subtitle: "Dive into interactive lessons designed for beginners and advanced learners.",
-      imageUrl: "https://placehold.co/400x300/0D0D0D/FFFFFF?text=Learn+FSL", // Placeholder image 2
+      imageUrl: 'assets/images/Hand.png', // Placeholder image 2
     ),
     OnboardingItem(
       title: "Practice & Connect",
       subtitle: "Improve your skills with practice exercises and connect with the community.",
-      imageUrl: "https://placehold.co/400x300/0D0D0D/FFFFFF?text=Practice", // Placeholder image 3
+      imageUrl: 'assets/images/Hand.png', // Placeholder image 3
     ),
   ];
 
