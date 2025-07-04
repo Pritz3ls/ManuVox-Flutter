@@ -27,7 +27,7 @@ class CameraScreen extends StatelessWidget {
             bottom: 0,
             left: 0,
             right: 0,
-            height: 100,
+            height: 80,
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
@@ -35,7 +35,7 @@ class CameraScreen extends StatelessWidget {
                   end: Alignment.topCenter,
                   colors: [
                     Color.fromARGB(255, 0, 0, 0),
-                    Color.fromARGB(237, 0, 0, 0),
+                    Color.fromARGB(255, 0, 0, 0),
                   ],
                 ),
               ),
