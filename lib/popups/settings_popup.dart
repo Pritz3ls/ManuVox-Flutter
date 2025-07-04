@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../objects/sync_service.dart';
+import '../popups/popup_handler.dart';
+import '../popups/update_popup.dart';
 
 class SettingsPopup extends StatefulWidget {
   const SettingsPopup({super.key});
@@ -12,6 +15,13 @@ class _SettingsPopupState extends State<SettingsPopup> {
   String selectedTextSize = "Large";
   bool enableAutoUpdates = true;
   bool notifyUpdates = false;
+
+  Future <void> _checkUpdates() async{
+    bool availableUpdates = await SyncService.instance.hasPendingUpdates();
+    if(availableUpdates){
+      PopupHandler.instance.showPopup(context, const UpdatePopup());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +147,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                                 ),
                                 child: TextButton.icon(
                                   onPressed: () {
-                                    // No logic, UI only
+                                    _checkUpdates();
                                   },
                                   icon: Icon(Icons.system_update, color: Colors.black, size: 20),
                                   label: Text(
@@ -160,10 +170,6 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           const SizedBox(height: 24),
                         ],
                       ),
-
-
-
-
 
                       // Reset App Preferences
                       Row(

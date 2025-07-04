@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/custom_icon.dart';
 
 class SpeedPopup extends StatelessWidget {
   const SpeedPopup({super.key});
@@ -33,11 +34,11 @@ class SpeedPopup extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
-                SpeedOption(label: "Slow"),
+                SpeedOption(label: "Slow", icon: Icons.fast_rewind),
                 SizedBox(width: 10),
-                SpeedOption(label: "Average"),
+                SpeedOption(label: "Average", icon: Icons.play_circle),
                 SizedBox(width: 10), 
-                SpeedOption(label: "Fast"),
+                SpeedOption(label: "Fast", icon: Icons.bolt),
               ],
             ),
           ],
@@ -49,8 +50,9 @@ class SpeedPopup extends StatelessWidget {
 
 class SpeedOption extends StatelessWidget {
   final String label;
+  final IconData icon;
 
-  const SpeedOption({super.key, required this.label});
+  const SpeedOption({super.key, required this.label, required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class SpeedOption extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             color: Colors.transparent,
           ),
+          child: Icon(icon, color: Colors.white, size: 48),
         ),
         const SizedBox(height: 8),
 

@@ -1,8 +1,7 @@
 import '../objects/gesture_category.dart';
 import '../objects/local_database.dart';
-import '../objects/sync_service.dart';
+import '../popups/result_popup.dart';
 import '../popups/popup_handler.dart';
-import '../popups/update_popup.dart';
 
 import '../screens/camera_screen.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +20,7 @@ class _ReferenceState extends State<ReferenceScreen> {
   @override
   void initState() {
     super.initState();
-    _checkUpdates();
     _loadGestures();
-  }
-
-  Future <void> _checkUpdates() async{
-    bool availableUpdates = await SyncService.instance.hasPendingUpdates();
-    if(availableUpdates){
-      PopupHandler.instance.showPopup(context, const UpdatePopup());
-    }
   }
 
   Future<void> _loadGestures() async {
@@ -54,37 +45,7 @@ class _ReferenceState extends State<ReferenceScreen> {
     final filteredSearch = results.where((result) => result.gestureName.toLowerCase().contains(searchValue.toLowerCase()) 
     || result.categoryName.toLowerCase().contains(searchValue.toLowerCase())).toList();
 
-    return Scaffold( // <--- Wrap with Scaffold
-      // body: Builder( // Using Builder to ensure context is available if needed
-      //   builder: (BuildContext context) {
-      //     if (isLoading) {
-      //       return Center(child: CircularProgressIndicator());
-      //     } else if (error != null) {
-      //       return Center(child: Text('Error: $error'));
-      //     } else if (results.isEmpty) {
-      //       return Center(child: Text('No gestures found.'));
-      //     }
-      //     else {
-      //       return ListView.builder(
-      //         itemCount: results.length,
-      //         itemBuilder: (context, index) {
-      //           return ListTile(
-      //             title: Text(results[index].name),
-      //             // Double-check 'category' field in your Gestures class.
-      //             // Based on your DB table, it has 'id' and 'name'.
-      //             // If 'category' in your Gestures class maps to 'id' from the DB, then it should be an int.
-      //             // If your React server provides a 'category' string, then it's fine.
-      //             // Assuming 'category' in Gestures class now correctly holds some identifiable data.
-      //             subtitle: Text('Category ID: ${results[index].category}'),
-      //             // You might also consider onTap for navigation or details
-      //             // onTap: () {
-      //             //   // Handle tap
-      //             // },
-      //           );
-      //         },
-      //       );
-      //     }
-      //   },
+    return Scaffold(
       body: Column(
         children: [
           // Curved & Responsive Header for Camera notch
@@ -196,12 +157,18 @@ class _ReferenceState extends State<ReferenceScreen> {
                   ),
                   padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    "${filteredSearch[index].gestureName} - ${filteredSearch[index].categoryName}",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: ListTile(
+                    title: Text(
+                      "${filteredSearch[index].gestureName} - ${filteredSearch[index].categoryName}",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      // Handle tap if needed
+                      PopupHandler.instance.showPopup(context, ResultPopup(name: filteredSearch[index].gestureName, category: filteredSearch[index].categoryName));
+                    },
+                  ), 
                 );
-              },
+              }
             ),
           ),
         ],

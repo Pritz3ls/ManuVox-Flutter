@@ -58,6 +58,19 @@ class PermissionScreen extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
+            Expanded(
+              flex: 2,
+              child: Center(
+                child: Image.network(
+                  'assets/images/Hand.png',
+                  fit: BoxFit.contain,
+                  width: MediaQuery.of(context).size.width * 0.4, // Responsive width
+                  height: MediaQuery.of(context).size.height * 0.2, // Responsive height
+                  errorBuilder: (context, error, stackTrace) =>
+                        const Icon(Icons.broken_image, size: 100, color: Colors.grey),
+                ),
+              ),
+            ),
             const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
