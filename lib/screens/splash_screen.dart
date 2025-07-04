@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 // Import the OnboardingScreen as it's the next destination
 import 'onboarding_screen.dart';
+// import '../objects/local_database.dart';
 
 // The SplashScreen widget, now in its own file
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
+    // LocalDatabase localDatabase = LocalDatabase();
+    // localDatabase.InitializeDatabase();
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D), // Dark background color
       body: Padding(

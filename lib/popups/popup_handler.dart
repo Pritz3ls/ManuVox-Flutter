@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
- class PopupHandler extends StatelessWidget{
+ class PopupHandler{
+  static final PopupHandler instance = PopupHandler._instance();
+  PopupHandler._instance();
+
   // const PopupHandler({super.key});
   void showPopup(BuildContext context, Widget child) {
     showGeneralDialog(
@@ -27,10 +30,5 @@ import 'dart:ui';
         );
       },
     );
-  }
-
-  @override
-  Widget build(BuildContext context){
-    return PopupHandler();
   }
 }

@@ -4,7 +4,6 @@ import 'screens/splash_screen.dart';
 // This class defines your main application widget
 class ManuVoxApp extends StatelessWidget {
   const ManuVoxApp({super.key}); // Add const constructor
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

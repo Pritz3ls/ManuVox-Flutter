@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../objects/sync_service.dart';
 
 class UpdatePopup extends StatelessWidget {
   const UpdatePopup({super.key});
@@ -91,6 +92,7 @@ class _PopupActions extends StatelessWidget {
             onPressed: () {
               // logic
               Navigator.of(context).pop();
+              SyncService.instance.performFullPullSync();
             },
             child: const Text('Update'),
           ),

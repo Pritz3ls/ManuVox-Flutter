@@ -86,6 +86,46 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           child: DropdownButtonHideUnderline(
                             child: Theme(
                               data: Theme.of(context).copyWith(
+                                canvasColor: Colors.white, 
+                              ),
+                              child: DropdownButton<String>(
+                                value: selectedTextSize,
+                                onChanged: (value) {
+                                  setState(() {
+                                    selectedTextSize = value!;
+                                  });
+                                },
+                                iconEnabledColor: Colors.black,
+                                style: const TextStyle(color: Colors.black),
+                                items: const [
+                                  DropdownMenuItem(value: "Small", child: Text("Small")),
+                                  DropdownMenuItem(value: "Medium", child: Text("Medium")),
+                                  DropdownMenuItem(value: "Large", child: Text("Large")),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 24),
+
+                    // Reset App Preferences
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text("On Screen Text Size", style: TextStyle(color: Colors.white)),
+                        Container(
+                          height: 30,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
                                 canvasColor: Colors.white,
                               ),
                               child: DropdownButton<String>(
