@@ -153,7 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   transitionBuilder: (Widget child, Animation<double> animation) {
                     return ScaleTransition(scale: animation, child: child); // Example transition
                   },
-                  child: Image.network(
+                  child: Image.asset(
                     key: ValueKey<int>(_currentPage), // Key for AnimatedSwitcher
                     onboardingItems[_currentPage].imageUrl, // Dynamic image based on current page
                     fit: BoxFit.contain,

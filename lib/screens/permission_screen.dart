@@ -61,7 +61,7 @@ class PermissionScreen extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Center(
-                child: Image.network(
+                child: Image.asset(
                   'assets/images/Hand.png',
                   fit: BoxFit.contain,
                   width: MediaQuery.of(context).size.width * 0.4, // Responsive width
