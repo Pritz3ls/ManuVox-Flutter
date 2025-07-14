@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 import 'onboarding_screen.dart';
 import 'finalization_screen.dart';
 import '../widgets/custom_icon.dart';
+import 'package:permission_handler/permission_handler.dart';
 // Import the OnboardingScreen as it's the next destination
 
 // The SplashScreen widget, now in its own file
 class PermissionScreen extends StatelessWidget {
   const PermissionScreen({super.key});
+  
+  Future<bool> isCameraAccessGranted() async{
+    final status = await Permission.camera.isGranted;
+    return status;
+  }
 
   @override
   Widget build(BuildContext context) {
+    Permission.camera.request();
     return Scaffold(
       backgroundColor: const Color(0xFF0D0D0D), // Dark background color
       body: Padding(
@@ -91,9 +98,13 @@ class PermissionScreen extends StatelessWidget {
                     onPressed: () {
                       // Navigate to the Finalization Screen
                       // print('Continue button pressed from splash screen, navigating to OnboardingScreen!');
-                      Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => const FinalizationScreen())
-                      );
+                      if(isCameraAccessGranted() == true){
+                        Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => const FinalizationScreen())
+                        );
+                      }else{
+                        Permission.camera.request();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // Import the OnboardingScreen as it's the next destination
 import 'onboarding_screen.dart';
+import 'terms.dart';
+import 'privacy.dart';
 // import '../objects/local_database.dart';
 
 // The SplashScreen widget, now in its own file
@@ -50,6 +53,7 @@ class SplashScreen extends StatelessWidget {
                       const TextSpan(text: 'By clicking Continue you agree to our '),
                       TextSpan(
                         text: '\nPrivacy Policy',
+                        recognizer: TapGestureRecognizer()..onTap = () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => PrivacyPolicy())),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
@@ -58,6 +62,7 @@ class SplashScreen extends StatelessWidget {
                       const TextSpan(text: ' and '),
                       TextSpan(
                         text: 'Terms and Conditions',
+                        recognizer: TapGestureRecognizer()..onTap = () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => TermsConditions())),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
