@@ -13,7 +13,6 @@ class RemoteDatabase {
     String apiUrl = '$_baseUrl/category';
     if (since != null) {
       // Encode the timestamp for URL. Your Node.js API needs to parse this.
-      // Example: '2023-10-27T10:00:00.000Z' or Unix milliseconds
       apiUrl += '?since=${Uri.encodeComponent(since.toIso8601String())}';
     }
 
@@ -51,6 +50,4 @@ class RemoteDatabase {
       throw Exception('Error fetching gestures: $e');
     }
   }
-
-  // You might add methods for other tables here (e.g., fetchUsers, fetchLessons)
 }
