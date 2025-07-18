@@ -210,7 +210,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Action for the Continue button
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PermissionScreen()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PermissionScreenCamera()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white, // White background

@@ -22,6 +22,7 @@ class _FinalizationScreenState extends State<FinalizationScreen> {
   void initState(){
     super.initState();
     startLoadingTime();
+    markOnboardingComplete();
   }
 
   void startLoadingTime(){

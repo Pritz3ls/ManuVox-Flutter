@@ -11,8 +11,8 @@ import 'finalization_screen.dart';
 // Import the OnboardingScreen as it's the next destination
 
 // The SplashScreen widget, now in its own file
-class PermissionScreen extends StatelessWidget {
-  const PermissionScreen({super.key});
+class PermissionScreenCamera extends StatelessWidget {
+  const PermissionScreenCamera({super.key});
   
   Future<bool> isCameraAccessGranted() async{
     final status = await Permission.camera.isGranted;
