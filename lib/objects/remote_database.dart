@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class RemoteDatabase {
-  final String _baseUrl = 'http://localhost:3001/manuvox'; // Android emulator IP. Use localhost for iOS sim/web in same machine.
+  final String _baseUrl = 'http://10.0.2.2:3001/manuvox'; // Android emulator IP. Use localhost for iOS sim/web in same machine.
 
   // --- Category Fetching ---
   Future<List<Category>> fetchCategories({DateTime? since}) async {

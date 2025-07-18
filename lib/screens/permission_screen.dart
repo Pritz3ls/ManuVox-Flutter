@@ -68,7 +68,7 @@ class PermissionScreen extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Center(
-                child: Image.network(
+                child: Image.asset(
                   'assets/images/Hand.png',
                   fit: BoxFit.contain,
                   width: MediaQuery.of(context).size.width * 0.4, // Responsive width
@@ -95,10 +95,10 @@ class PermissionScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       // Navigate to the Finalization Screen
                       // print('Continue button pressed from splash screen, navigating to OnboardingScreen!');
-                      if(isCameraAccessGranted() == true){
+                      if(await isCameraAccessGranted()){
                         Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => const FinalizationScreen())
                         );
