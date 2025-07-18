@@ -1,5 +1,3 @@
-// objects/remote_database.dart (Improvised for Pull-Only)
-
 import 'gestures.dart';
 import 'category.dart';
 import 'dart:convert';

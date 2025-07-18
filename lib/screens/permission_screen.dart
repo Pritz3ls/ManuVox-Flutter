@@ -103,7 +103,20 @@ class PermissionScreen extends StatelessWidget {
                           MaterialPageRoute(builder: (context) => const FinalizationScreen())
                         );
                       }else{
-                        Permission.camera.request();
+                        Permission.camera.onDeniedCallback((){
+                        }).onGrantedCallback((){
+                          Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => const FinalizationScreen())
+                          );
+                        }).onPermanentlyDeniedCallback((){
+                          // Fallback
+                        }).onRestrictedCallback((){
+                          // Fallback
+                        }).onLimitedCallback((){
+                          // Fallback
+                        }).onLimitedCallback((){
+                          // Fallback
+                        }).request();
                       }
                     },
                     style: ElevatedButton.styleFrom(
