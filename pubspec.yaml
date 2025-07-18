@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -41,12 +42,16 @@ dependencies:
   connectivity_plus: ^6.0.1
   shared_preferences: ^2.2.3
   path: ^1.9.1
+  flutter_launcher_icons: ^0.14.4
   permission_handler: ^11.3.1 # or the latest version
   simple_gesture_detector: ^0.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -57,8 +62,15 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "icons/icon.png"
+  adaptive_icon_foreground: "icons/foreground.png"
+  adaptive_icon_background: "icons/background.png"
+  
 # The following section is specific to Flutter packages.
+
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -73,6 +85,7 @@ flutter:
   assets:
   - assets/images/Background-Demo-Image.png
   - assets/images/Hand.png
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

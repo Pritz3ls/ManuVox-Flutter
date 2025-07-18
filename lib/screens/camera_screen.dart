@@ -163,7 +163,8 @@ class CameraScreen extends StatelessWidget {
                             minimumSize: Size.zero,
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          child: CustomIcon(icon: Icons.camera_alt_outlined, iconSize: 32),
+                          child: CustomIcon(icon: Icons.cameraswitch_outlined, iconSize: 35),
+
                         ),
                       ),
                     ],
