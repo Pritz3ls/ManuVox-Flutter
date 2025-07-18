@@ -9,7 +9,7 @@ import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart'; // For web
 
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform; // For desktop platform checks
-import 'package:sqflite/sqflite.dart';
+// import 'package:sqflite/sqflite.dart';
 
 import 'package:path/path.dart';
 

@@ -1,9 +1,12 @@
+// ignore_for_file: avoid_print
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import '../objects/sync_service.dart';
 import '../popups/popup_handler.dart';
 import '../popups/update_popup.dart';
+import '../popups/error_message_popup.dart';
 
 class SettingsPopup extends StatefulWidget {
   const SettingsPopup({super.key});
@@ -22,6 +25,15 @@ class _SettingsPopupState extends State<SettingsPopup> {
     bool availableUpdates = await SyncService.instance.hasPendingUpdates();
     if(availableUpdates){
       PopupHandler.instance.showPopup(context, const UpdatePopup());
+    }else{
+      PopupHandler.instance.showPopup(context, ErrorMessage(
+        title: "No Updates Available", 
+        message: "There are no updates available, your app is up to date.", 
+        buttonMessage: "Continue", 
+        subEvent: () async{
+          // Null callback
+        }
+      ));
     }
   }
 
@@ -171,7 +183,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           const SizedBox(height: 4),
                           // Application Version
                           const Text(
-                            "Application Version 2.1.0",
+                            "Application Version 2.32.1",
                             style: TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           const SizedBox(height: 24),
