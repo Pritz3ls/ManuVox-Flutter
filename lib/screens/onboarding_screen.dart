@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'permission_screen.dart';
+import 'permission_screen_camera.dart';
 import 'splash_screen.dart';
 import '../widgets/custom_icon.dart';
 import 'dart:async'; // Import for using Timer

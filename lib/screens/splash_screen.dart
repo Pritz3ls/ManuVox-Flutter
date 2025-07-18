@@ -1,15 +1,21 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 // Import the OnboardingScreen as it's the next destination
 import 'onboarding_screen.dart';
+import 'initialization_screen.dart';
 import 'terms.dart';
 import 'privacy.dart';
-// import '../objects/local_database.dart';
 
 // The SplashScreen widget, now in its own file
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
   
+  Future<bool> isOnboardingComplete() async{
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('onboarding_complete') ?? false;
+  }
+
   @override
   Widget build(BuildContext context) {
     // LocalDatabase localDatabase = LocalDatabase();
@@ -77,12 +83,19 @@ class SplashScreen extends StatelessWidget {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigate to the OnboardingScreen
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
-                      );
-                      // print('Continue button pressed from splash screen, navigating to OnboardingScreen!');
+                      // ignore: unrelated_type_equality_checks
+                      if(isOnboardingComplete() == true){
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const InitializationScreen()),
+                        );
+                      }else{
+                        // Navigate to the OnboardingScreen
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,

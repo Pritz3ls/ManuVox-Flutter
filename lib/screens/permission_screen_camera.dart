@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../popups/popup_handler.dart';
+import '../popups/error_message_popup.dart';
+import '../widgets/custom_icon.dart';
 import 'onboarding_screen.dart';
 import 'finalization_screen.dart';
-import '../widgets/custom_icon.dart';
-import 'package:permission_handler/permission_handler.dart';
 // Import the OnboardingScreen as it's the next destination
 
 // The SplashScreen widget, now in its own file
@@ -12,6 +17,9 @@ class PermissionScreen extends StatelessWidget {
   Future<bool> isCameraAccessGranted() async{
     final status = await Permission.camera.isGranted;
     return status;
+  }
+  Future<void> requestCameraAccessAgain() async{
+    Permission.camera.request();
   }
 
   @override
@@ -104,12 +112,30 @@ class PermissionScreen extends StatelessWidget {
                         );
                       }else{
                         Permission.camera.onDeniedCallback((){
+                          PopupHandler.instance.showPopup(context, 
+                            ErrorMessage(
+                              title: "Warning", 
+                              buttonMessage: "Okay",
+                              message: "The application doesn't have the permission for camera access, please allow camera access.", 
+                              subEvent: (){
+                                // None
+                              }
+                          ));
                         }).onGrantedCallback((){
                           Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) => const FinalizationScreen())
                           );
                         }).onPermanentlyDeniedCallback((){
                           // Fallback
+                          PopupHandler.instance.showPopup(context, 
+                            ErrorMessage(
+                              title: "Error",
+                              buttonMessage: "Quit App", 
+                              message: "Permanent Denied Camera Access, please allow camera access on the app settings.\nErr:CAM_ACCESS_400", 
+                              subEvent: (){
+                                exit(0);
+                              }
+                          ));
                         }).onRestrictedCallback((){
                           // Fallback
                         }).onLimitedCallback((){

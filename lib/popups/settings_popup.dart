@@ -1,3 +1,5 @@
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../objects/sync_service.dart';
 import '../popups/popup_handler.dart';
@@ -21,6 +23,11 @@ class _SettingsPopupState extends State<SettingsPopup> {
     if(availableUpdates){
       PopupHandler.instance.showPopup(context, const UpdatePopup());
     }
+  }
+
+  Future<void> resetApplicationData() async{
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('onboarding_complete');
   }
 
   @override
@@ -164,7 +171,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           const SizedBox(height: 4),
                           // Application Version
                           const Text(
-                            "Application Version 1.0.0",
+                            "Application Version 2.1.0",
                             style: TextStyle(color: Colors.white70, fontSize: 12),
                           ),
                           const SizedBox(height: 24),
@@ -185,7 +192,11 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           SizedBox(
                             height: 30,
                             child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                print("Reseting application, exiting application");
+                                resetApplicationData();
+                                exit(0);
+                              },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.pink[600],
                                 foregroundColor: Colors.black87,
@@ -205,7 +216,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                       style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
 
-                      const SizedBox(height: 24),
+                    const SizedBox(height: 24),
 
 
 
@@ -234,7 +245,7 @@ class _SettingsPopupState extends State<SettingsPopup> {
                           height: 30,
                           child: ElevatedButton(
                             onPressed: () {
-                              // Exit app logic here
+                              exit(0);
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,

@@ -1,22 +1,16 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'camera_screen.dart';
 import 'dart:async'; // Import for using Timer
 
-class FinalizationScreen extends StatefulWidget{
-  const FinalizationScreen({super.key});
+class InitializationScreen extends StatefulWidget{
+  const InitializationScreen({super.key});
   @override
-  State<FinalizationScreen> createState() => _FinalizationScreenState();
+  State<InitializationScreen> createState() => _InitializationScreenState();
 }
 
-class _FinalizationScreenState extends State<FinalizationScreen> {
+class _InitializationScreenState extends State<InitializationScreen> {
   Timer? _virtualLoadingTime;
   final Duration _loadingDuration = const Duration(seconds: 3);
-
-  Future<void> markOnboardingComplete() async{
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('onboarding_complete', true);
-  }
 
   @override
   void initState(){
@@ -52,7 +46,7 @@ class _FinalizationScreenState extends State<FinalizationScreen> {
           children: [
             const SizedBox(height: 100),
             const Text(
-              'Finalizing',
+              'Initializing',
               style: TextStyle(
                 fontSize: 36,
                 fontWeight: FontWeight.bold,
