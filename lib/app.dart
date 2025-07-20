@@ -7,7 +7,7 @@ class ManuVoxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ManuVox', // Title of the application
+      title: 'ManuVox', // Title of the application yehey
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark, // Overall dark theme
