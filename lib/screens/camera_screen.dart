@@ -61,14 +61,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
     }
   }
 
-  Future<bool> isCameraAccessDeniedOrPermanently() async {
-    return await Permission.camera.isPermanentlyDenied;
-  }
-
-  Future<bool> isCameraAccessDeniedOnly() async {
-    return await Permission.camera.isDenied;
-  }
-
   Future<void> requestCameraAccessAgain() async {
     await Permission.camera.request();
     if (mounted) {
@@ -130,7 +122,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
           if (discoveredCameras != null) {
             _availableCameras = discoveredCameras;
           } else {
-            print("availableCameras() returned null on web. No cameras found.");
             if (mounted) {
               setState(() {
                 _cameraStatusMessage = "No cameras found on device.";
@@ -146,7 +137,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
           }
           await _initCameraController(_availableCameras[_selectedCameraIndex]);
         } else {
-          print("No cameras found on this device after discovery.");
           if (mounted) {
             setState(() {
               _cameraStatusMessage = "No cameras found on device.";
@@ -154,7 +144,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
           }
         }
       } on CameraException catch (e) {
-        print("Camera initialization error: $e");
         if (mounted) {
           setState(() {
             _isCameraInitialized = false;
@@ -162,7 +151,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
           });
         }
       } catch (e) {
-        print("An unexpected error occurred during camera setup: $e");
         if (mounted) {
           setState(() {
             _isCameraInitialized = false;
@@ -198,7 +186,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
         _cameraStatusMessage = "Camera ready.";
       });
     } on CameraException catch (e) {
-      print("Error initializing camera controller: $e");
       if (mounted) {
         setState(() {
           _isCameraInitialized = false;
@@ -228,7 +215,6 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
     try {
       await _initCameraController(_availableCameras[_selectedCameraIndex]);
     } on CameraException catch (e) {
-      print("Error switching camera: $e");
       setState(() {
         _cameraStatusMessage = "Error switching camera: ${e.code}";
       });
@@ -237,22 +223,17 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final deviceRatio = size.width / size.height;
-
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
             child: _isCameraInitialized && _cameraController != null && _cameraController!.value.isInitialized
-                ? Transform.scale(
-                    scale: _cameraController!.value.aspectRatio / deviceRatio,
-                    alignment: Alignment.center,
-                    child: Center(
-                      child: AspectRatio(
-                        aspectRatio: _cameraController!.value.aspectRatio,
-                        child: CameraPreview(_cameraController!),
-                      ),
+                ? FittedBox(
+                    fit: BoxFit.cover,
+                    child: SizedBox(
+                      width: _cameraController!.value.previewSize!.height,
+                      height: _cameraController!.value.previewSize!.width,
+                      child: CameraPreview(_cameraController!),
                     ),
                   )
                 : Container(
@@ -303,41 +284,13 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 48,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: () => PopupHandler.instance.showPopup(context, const SettingsPopup()),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const CustomIcon(icon: Icons.menu, iconSize: 32),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 48,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => ReferenceScreen()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const CustomIcon(icon: Icons.menu_book_outlined, iconSize: 32),
-                        ),
-                      ),
+                      _buildIconBtn(() => PopupHandler.instance.showPopup(context, const SettingsPopup()), Icons.menu),
+                      _buildIconBtn(() {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => ReferenceScreen()),
+                        );
+                      }, Icons.menu_book_outlined),
                     ],
                   ),
                 ),
@@ -374,45 +327,12 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 24,
-                    right: 24,
-                    bottom: 16,
-                    top: 8,
-                  ),
+                  padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16, top: 8),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 48,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: () => PopupHandler.instance.showPopup(context, const SpeedPopup()),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const CustomIcon(icon: Icons.tune, iconSize: 32),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 48,
-                        height: 48,
-                        child: ElevatedButton(
-                          onPressed: _switchCamera, // Switched to _switchCamera function
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            foregroundColor: Colors.white,
-                            padding: EdgeInsets.zero,
-                            minimumSize: Size.zero,
-                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          ),
-                          child: const CustomIcon(icon: Icons.cameraswitch_outlined, iconSize: 35),
-                        ),
-                      ),
+                      _buildIconBtn(() => PopupHandler.instance.showPopup(context, const SpeedPopup()), Icons.tune),
+                      _buildIconBtn(_switchCamera, Icons.cameraswitch_outlined, size: 35),
                     ],
                   ),
                 ),
@@ -420,6 +340,24 @@ class _CameraScreenState extends State<CameraScreen> with WidgetsBindingObserver
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildIconBtn(VoidCallback onPressed, IconData icon, {double size = 32}) {
+    return SizedBox(
+      width: 48,
+      height: 48,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.zero,
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+        child: CustomIcon(icon: icon, iconSize: size),
       ),
     );
   }
